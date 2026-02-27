@@ -14,6 +14,20 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
     capable: true,
   },
+  openGraph: {
+    title: "My Expenses — Smart Expense Tracker",
+    description: "Track, analyze, and manage your daily expenses with a beautiful mobile-first experience.",
+    url: "https://my-xpenses.vercel.app",
+    siteName: "My Expenses",
+    locale: "en_IN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "My Expenses — Smart Expense Tracker",
+    description: "Track, analyze, and manage your daily expenses with a beautiful mobile-first experience.",
+    creator: "@encodedcoder_",
+  },
   manifest: "/manifest.json",
 };
 
