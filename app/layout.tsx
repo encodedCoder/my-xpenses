@@ -16,7 +16,7 @@ export const metadata: Metadata = {
       { url: "/icon1.png" },
       { url: "/icon0.svg", type: "image/svg+xml" },
     ],
-    apple: [{ url: "/apple-icon.png" }],
+    apple: [{ url: "/apple-touch-icon.png" }],
   },
   manifest: "/manifest.json",
 };

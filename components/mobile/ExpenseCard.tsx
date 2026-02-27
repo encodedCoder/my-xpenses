@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Pencil, Trash2, CreditCard, Banknote, Smartphone } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Pencil, Trash2, CreditCard, Banknote, Smartphone, MoreVertical } from "lucide-react";
 import { IExpense, ExpenseType, PaymentMode } from "@/types";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import ConfirmationModal from "@/components/ui/ConfirmationModal";
 
 const TYPE_BADGE_CLASS: Record<ExpenseType, string> = {
@@ -36,9 +36,10 @@ interface ExpenseCardProps {
 }
 
 export default function ExpenseCard({ expense, index, onEdit, onDelete }: ExpenseCardProps) {
-  const [showActions, setShowActions] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   const ModeIcon = MODE_ICON[expense.mode];
 
   const formattedDate = new Date(expense.date).toLocaleDateString("en-IN", {
@@ -46,6 +47,22 @@ export default function ExpenseCard({ expense, index, onEdit, onDelete }: Expens
     month: "short",
     year: "numeric",
   });
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setShowMenu(false);
+      }
+    };
+
+    if (showMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showMenu]);
 
   const handleDelete = () => {
     setIsDeleting(true);
@@ -68,8 +85,7 @@ export default function ExpenseCard({ expense, index, onEdit, onDelete }: Expens
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: isDeleting ? 0 : 1, y: isDeleting ? -20 : 0, scale: isDeleting ? 0.95 : 1 }}
         transition={{ delay: Math.min(index * 0.04, 0.3), duration: 0.3 }}
-        className="glass-card p-4 sm:p-5 cursor-pointer active:scale-[0.98] transition-transform duration-100 hover:border-surface-600/50"
-        onClick={() => setShowActions(!showActions)}
+        className="glass-card p-4 sm:p-5 relative transition-transform duration-100"
       >
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
@@ -87,43 +103,63 @@ export default function ExpenseCard({ expense, index, onEdit, onDelete }: Expens
             </div>
           </div>
 
-          <div className="text-right flex-shrink-0">
-            <p className="text-lg sm:text-xl font-bold text-white">
-              ₹{expense.amount.toLocaleString("en-IN")}
-            </p>
+          <div className="flex items-start gap-2">
+            <div className="text-right">
+              <p className="text-lg sm:text-xl font-bold text-white">
+                ₹{expense.amount.toLocaleString("en-IN")}
+              </p>
+            </div>
+            
+            {/* Three Dots Menu */}
+            <div className="relative" ref={menuRef}>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowMenu(!showMenu);
+                }}
+                className={`p-1.5 rounded-lg transition-colors ${
+                  showMenu ? "bg-surface-800 text-white" : "text-surface-500 hover:text-white"
+                }`}
+              >
+                <MoreVertical className="w-5 h-5" />
+              </button>
+
+              <AnimatePresence>
+                {showMenu && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9, y: -10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.9, y: -10 }}
+                    className="absolute right-0 top-10 z-20 w-36 glass-card p-1.5 shadow-elevated border-surface-700/50"
+                  >
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowMenu(false);
+                        onEdit(expense);
+                      }}
+                      className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-surface-300 hover:bg-surface-800 hover:text-white rounded-lg transition-colors"
+                    >
+                      <Pencil className="w-4 h-4 text-primary-400" />
+                      Edit
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowMenu(false);
+                        setShowConfirmDelete(true);
+                      }}
+                      className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-surface-300 hover:bg-surface-800 hover:text-red-400 rounded-lg transition-colors"
+                    >
+                      <Trash2 className="w-4 h-4 text-red-400" />
+                      Delete
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </div>
-
-        {/* Action buttons on tap/click */}
-        {showActions && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="flex gap-2 sm:gap-3 mt-3 pt-3 border-t border-surface-700/50"
-          >
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onEdit(expense);
-              }}
-              className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-primary-500/10 text-primary-400 text-sm font-medium hover:bg-primary-500/20 transition-colors"
-            >
-              <Pencil className="w-4 h-4" />
-              Edit
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowConfirmDelete(true);
-              }}
-              className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-red-500/10 text-red-400 text-sm font-medium hover:bg-red-500/20 transition-colors"
-            >
-              <Trash2 className="w-4 h-4" />
-              Delete
-            </button>
-          </motion.div>
-        )}
       </motion.div>
     </>
   );
