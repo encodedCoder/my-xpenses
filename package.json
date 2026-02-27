@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ducanh2912/next-pwa": "^10.2.9",
     "@hookform/resolvers": "^3.9.1",
     "chart.js": "^4.4.7",
     "framer-motion": "^11.15.0",
