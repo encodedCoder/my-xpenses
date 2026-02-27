@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-surface-950 text-surface-100 font-sans;
+    overscroll-behavior: none;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-surface-700 rounded-full;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-surface-900/80 backdrop-blur-xl border border-surface-700/50 rounded-2xl;
+  }
+
+  .glass-card-light {
+    @apply bg-surface-800/60 backdrop-blur-xl border border-surface-700/30 rounded-2xl;
+  }
+
+  .gradient-primary {
+    @apply bg-gradient-to-r from-primary-500 to-primary-600;
+  }
+
+  .gradient-accent {
+    @apply bg-gradient-to-r from-accent-500 to-accent-600;
+  }
+
+  .gradient-mesh {
+    background: 
+      radial-gradient(at 20% 20%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+      radial-gradient(at 80% 80%, rgba(20, 184, 166, 0.1) 0px, transparent 50%),
+      radial-gradient(at 50% 50%, rgba(99, 102, 241, 0.05) 0px, transparent 50%);
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold 
+           rounded-2xl px-6 py-3 transition-all duration-200 
+           hover:from-primary-600 hover:to-primary-700 hover:shadow-glow
+           active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply bg-surface-800 text-surface-200 font-medium rounded-2xl px-6 py-3 
+           border border-surface-700/50 transition-all duration-200
+           hover:bg-surface-700 active:scale-[0.98];
+  }
+
+  .input-field {
+    @apply w-full bg-surface-800/80 border border-surface-700/50 rounded-xl 
+           px-4 py-3 text-surface-100 placeholder-surface-500
+           focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/50
+           transition-all duration-200;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-food {
+    @apply bg-orange-500/20 text-orange-400;
+  }
+
+  .badge-travel {
+    @apply bg-blue-500/20 text-blue-400;
+  }
+
+  .badge-electronics {
+    @apply bg-purple-500/20 text-purple-400;
+  }
+
+  .badge-sip {
+    @apply bg-green-500/20 text-green-400;
+  }
+
+  .badge-other {
+    @apply bg-surface-500/20 text-surface-400;
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-accent-400;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Bottom sheet overlay */
+.overlay-enter {
+  animation: overlayIn 0.3s ease-out forwards;
+}
+
+.overlay-exit {
+  animation: overlayOut 0.2s ease-in forwards;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes overlayOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
