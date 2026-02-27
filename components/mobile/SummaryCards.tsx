@@ -10,6 +10,14 @@ const TYPE_COLORS: Record<ExpenseType, string> = {
   Electronics: "text-purple-400",
   SIP: "text-green-400",
   Other: "text-surface-400",
+  Clothes: "text-amber-400",
+  Subscription: "text-red-400",
+  Stocks: "text-emerald-400",
+  Fees: "text-indigo-400",
+  "Mobile Recharge": "text-pink-400",
+  Medicine: "text-teal-400",
+  "Transfer to Others": "text-surface-400",
+  Sports: "text-violet-400",
 };
 
 interface SummaryCardsProps {

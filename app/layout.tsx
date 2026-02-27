@@ -8,6 +8,17 @@ export const metadata: Metadata = {
     "Track, analyze, and manage your daily expenses with a beautiful mobile-first experience. Powered by modern fintech design.",
   keywords: ["expense tracker", "money manager", "personal finance", "budget"],
   authors: [{ name: "Expense App" }],
+  appleWebApp: {
+    title: "myExpenses",
+  },
+  icons: {
+    icon: [
+      { url: "/icon1.png" },
+      { url: "/icon0.svg", type: "image/svg+xml" },
+    ],
+    apple: [{ url: "/apple-icon.png" }],
+  },
+  manifest: "/manifest.json",
 };
 
 export const viewport: Viewport = {

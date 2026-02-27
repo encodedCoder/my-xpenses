@@ -4,7 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { expenseSchema, ExpenseSchemaType } from "@/lib/validations";
 import { IExpense, ExpenseType, PaymentMode } from "@/types";
-import { Loader2 } from "lucide-react";
+import { Loader2, ChevronDown } from "lucide-react";
 
 const EXPENSE_TYPES: ExpenseType[] = [
   "Food",
@@ -71,29 +71,24 @@ export default function ExpenseForm({ onSubmit, defaultValues, isLoading }: Expe
         <label className="block text-sm font-medium text-surface-300 mb-2">
           Category
         </label>
-        <div className="flex flex-wrap gap-2">
+        <div className="relative">
           <Controller
             name="type"
             control={control}
             render={({ field }) => (
-              <>
+              <select
+                {...field}
+                className="input-field py-3 text-base appearance-none pr-10 cursor-pointer bg-surface-800"
+              >
                 {EXPENSE_TYPES.map((type) => (
-                  <button
-                    key={type}
-                    type="button"
-                    onClick={() => field.onChange(type)}
-                    className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
-                      field.value === type
-                        ? "gradient-primary text-white shadow-glow"
-                        : "bg-surface-800 text-surface-300 hover:bg-surface-700"
-                    }`}
-                  >
+                  <option key={type} value={type} className="bg-surface-900 border-none outline-none">
                     {type}
-                  </button>
+                  </option>
                 ))}
-              </>
+              </select>
             )}
           />
+          <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-surface-500 pointer-events-none" />
         </div>
         {errors.type && (
           <p className="text-red-400 text-xs mt-1.5">{errors.type.message}</p>

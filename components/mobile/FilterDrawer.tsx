@@ -149,30 +149,22 @@ export default function FilterDrawer({ filters, onFiltersChange }: FilterDrawerP
                 <label className="text-xs font-medium text-surface-400 uppercase tracking-wider mb-2 block">
                   Category
                 </label>
-                <div className="flex flex-wrap gap-2">
-                  <button
-                    onClick={() => updateFilter("type", "")}
-                    className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                      !filters.type
-                        ? "gradient-primary text-white"
-                        : "bg-surface-800 text-surface-400 hover:text-surface-200"
-                    }`}
+                <div className="relative">
+                  <select
+                    value={filters.type || ""}
+                    onChange={(e) => updateFilter("type", e.target.value)}
+                    className="input-field py-3 text-base appearance-none pr-10 cursor-pointer bg-surface-800"
                   >
-                    All
-                  </button>
-                  {EXPENSE_TYPES.map((type) => (
-                    <button
-                      key={type}
-                      onClick={() => updateFilter("type", type)}
-                      className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                        filters.type === type
-                          ? "gradient-primary text-white"
-                          : "bg-surface-800 text-surface-400 hover:text-surface-200"
-                      }`}
-                    >
-                      {type}
-                    </button>
-                  ))}
+                    <option value="" className="bg-surface-900">
+                      All Categories
+                    </option>
+                    {EXPENSE_TYPES.map((type) => (
+                      <option key={type} value={type} className="bg-surface-900 border-none outline-none">
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-surface-500 pointer-events-none" />
                 </div>
               </div>
 

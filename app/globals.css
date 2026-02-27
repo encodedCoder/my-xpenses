@@ -103,6 +103,38 @@
     @apply bg-surface-500/20 text-surface-400;
   }
 
+  .badge-clothes {
+    @apply bg-amber-500/20 text-amber-400;
+  }
+
+  .badge-subscription {
+    @apply bg-red-500/20 text-red-400;
+  }
+
+  .badge-stocks {
+    @apply bg-emerald-500/20 text-emerald-400;
+  }
+
+  .badge-fees {
+    @apply bg-indigo-500/20 text-indigo-400;
+  }
+
+  .badge-mobile {
+    @apply bg-pink-500/20 text-pink-400;
+  }
+
+  .badge-medicine {
+    @apply bg-teal-500/20 text-teal-400;
+  }
+
+  .badge-transfer {
+    @apply bg-surface-500/20 text-surface-400;
+  }
+
+  .badge-sports {
+    @apply bg-violet-500/20 text-violet-400;
+  }
+
   .safe-bottom {
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }

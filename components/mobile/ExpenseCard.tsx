@@ -11,6 +11,14 @@ const TYPE_BADGE_CLASS: Record<ExpenseType, string> = {
   Electronics: "badge-electronics",
   SIP: "badge-sip",
   Other: "badge-other",
+  Clothes: "badge-clothes",
+  Subscription: "badge-subscription",
+  Stocks: "badge-stocks",
+  Fees: "badge-fees",
+  "Mobile Recharge": "badge-mobile",
+  Medicine: "badge-medicine",
+  "Transfer to Others": "badge-transfer",
+  Sports: "badge-sports",
 };
 
 const MODE_ICON: Record<PaymentMode, typeof CreditCard> = {
