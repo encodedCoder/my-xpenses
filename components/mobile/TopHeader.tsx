@@ -1,9 +1,10 @@
 "use client";
 
 import { useSession, signOut } from "next-auth/react";
-import { ChevronDown, LogOut } from "lucide-react";
+import { ChevronDown, LogOut, Info } from "lucide-react";
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const MONTHS = [
   "January", "February", "March", "April", "May", "June",
@@ -97,6 +98,14 @@ export default function TopHeader({ currentMonth, currentYear, onMonthChange }: 
                     <p className="text-sm font-medium text-white truncate">{session?.user?.name}</p>
                     <p className="text-xs text-surface-400 truncate">{session?.user?.email}</p>
                   </div>
+                  <Link
+                    href="/about"
+                    onClick={() => setShowMenu(false)}
+                    className="w-full flex items-center gap-2 px-3 py-2.5 mt-1 text-sm text-surface-300 hover:bg-surface-800 rounded-lg transition-colors"
+                  >
+                    <Info className="w-4 h-4" />
+                    About My Expenses
+                  </Link>
                   <button
                     onClick={() => signOut({ callbackUrl: "/login" })}
                     className="w-full flex items-center gap-2 px-3 py-2.5 mt-1 text-sm text-red-400 hover:bg-surface-800 rounded-lg transition-colors"
