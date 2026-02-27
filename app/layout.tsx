@@ -3,6 +3,7 @@ import "./globals.css";
 import Providers from "@/components/Providers";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://my-xpenses.vercel.app"),
   title: "My Expenses — Smart Expense Tracker",
   description:
     "Track, analyze, and manage your daily expenses with a beautiful mobile-first experience. Powered by modern fintech design.",
@@ -15,10 +16,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/icon1.png" },
+      { url: "/icon1.png", sizes: "32x32" },
       { url: "/icon0.svg", type: "image/svg+xml" },
     ],
-    apple: [{ url: "/apple-touch-icon.png" }],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
   manifest: "/manifest.json",
 };
