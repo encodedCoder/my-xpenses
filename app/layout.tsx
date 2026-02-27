@@ -16,17 +16,28 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "My Expenses — Smart Expense Tracker",
-    description: "Track, analyze, and manage your daily expenses with a beautiful mobile-first experience.",
+    description:
+      "Track, analyze, and manage your daily expenses with a beautiful mobile-first experience. Powered by modern fintech design. Take control of your finances today.",
     url: "https://my-xpenses.vercel.app",
     siteName: "My Expenses",
     locale: "en_IN",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "My Expenses — Smart Expense Tracker",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "My Expenses — Smart Expense Tracker",
-    description: "Track, analyze, and manage your daily expenses with a beautiful mobile-first experience.",
+    description:
+      "Track, analyze, and manage your daily expenses with a beautiful mobile-first experience. Powered by modern fintech design. Take control of your finances today.",
     creator: "@encodedcoder_",
+    images: ["/og-image.png"],
   },
   manifest: "/manifest.json",
 };
