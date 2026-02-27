@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   authors: [{ name: "Expense App" }],
   appleWebApp: {
     title: "myExpenses",
+    statusBarStyle: "default",
+    capable: true,
   },
   icons: {
     icon: [
