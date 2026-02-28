@@ -29,7 +29,7 @@ const ExpenseSchema = new Schema<IExpenseDocument>(
       type: String,
       required: [true, "Expense type is required"],
       enum: {
-        values: ["Food", "Travel", "Electronics", "SIP", "Other"],
+        values: ["Food", "Electronics", "Clothes", "Subscription", "SIP", "Stocks", "Travel", "Fees", "Mobile Recharge", "Other", "Medicine", "Transfer to Others", "Sports"],
         message: "{VALUE} is not a valid expense type",
       },
     },
