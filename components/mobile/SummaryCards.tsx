@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { IndianRupee, Receipt, TrendingUp, Tags } from "lucide-react";
+import { IndianRupee, Receipt, TrendingUp, Tags, PiggyBank, Wallet } from "lucide-react";
 import { MonthlySummary, ExpenseType } from "@/types";
 
 const TYPE_COLORS: Record<ExpenseType, string> = {
@@ -25,6 +25,9 @@ interface SummaryCardsProps {
 }
 
 export default function SummaryCards({ summary }: SummaryCardsProps) {
+  const investments = (summary.categoryBreakdown["SIP"] || 0) + (summary.categoryBreakdown["Stocks"] || 0);
+  const trueSpends = summary.totalExpenses - investments;
+
   const cards = [
     {
       title: "Total Spent",
@@ -33,6 +36,22 @@ export default function SummaryCards({ summary }: SummaryCardsProps) {
       gradient: "from-primary-500/20 to-primary-600/10",
       iconColor: "text-primary-400",
       borderColor: "border-primary-500/20",
+    },
+    {
+      title: "True Spends",
+      value: `₹${trueSpends.toLocaleString("en-IN")}`,
+      icon: Wallet,
+      gradient: "from-cyan-500/20 to-cyan-600/10",
+      iconColor: "text-cyan-400",
+      borderColor: "border-cyan-500/20",
+    },
+    {
+      title: "Investments",
+      value: `₹${investments.toLocaleString("en-IN")}`,
+      icon: PiggyBank,
+      gradient: "from-emerald-500/20 to-emerald-600/10",
+      iconColor: "text-emerald-400",
+      borderColor: "border-emerald-500/20",
     },
     {
       title: "Transactions",

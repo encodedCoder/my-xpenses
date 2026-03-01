@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Pencil, Trash2, CreditCard, Banknote, Smartphone, MoreVertical } from "lucide-react";
+import { Pencil, Trash2, CreditCard, Banknote, Smartphone, MoreVertical, Copy } from "lucide-react";
 import { IExpense, ExpenseType, PaymentMode } from "@/types";
 import { useState, useRef, useEffect } from "react";
 import ConfirmationModal from "@/components/ui/ConfirmationModal";
@@ -33,9 +33,10 @@ interface ExpenseCardProps {
   index: number;
   onEdit: (expense: IExpense) => void;
   onDelete: (id: string) => void;
+  onDuplicate: (expense: IExpense) => void;
 }
 
-export default function ExpenseCard({ expense, index, onEdit, onDelete }: ExpenseCardProps) {
+export default function ExpenseCard({ expense, index, onEdit, onDelete, onDuplicate }: ExpenseCardProps) {
   const [showMenu, setShowMenu] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
@@ -102,6 +103,10 @@ export default function ExpenseCard({ expense, index, onEdit, onDelete }: Expens
               </span>
               <span>{formattedDate}</span>
             </div>
+
+            {expense.notes && (
+              <p className="text-xs text-surface-500 mt-1.5 italic truncate">{expense.notes}</p>
+            )}
           </div>
 
           <div className="flex items-start gap-2">
@@ -143,6 +148,17 @@ export default function ExpenseCard({ expense, index, onEdit, onDelete }: Expens
                     >
                       <Pencil className="w-4 h-4 text-primary-400" />
                       Edit
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowMenu(false);
+                        onDuplicate(expense);
+                      }}
+                      className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-surface-300 hover:bg-surface-800 hover:text-white rounded-lg transition-colors"
+                    >
+                      <Copy className="w-4 h-4 text-accent-400" />
+                      Duplicate
                     </button>
                     <button
                       onClick={(e) => {

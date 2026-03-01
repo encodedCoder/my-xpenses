@@ -13,6 +13,7 @@ interface DashboardViewProps {
   isLoading: boolean;
   onEdit: (e: IExpense) => void;
   onDelete: (id: string) => void;
+  onDuplicate: (e: IExpense) => void;
 }
 
 export default function DashboardView({
@@ -22,6 +23,7 @@ export default function DashboardView({
   isLoading,
   onEdit,
   onDelete,
+  onDuplicate,
 }: DashboardViewProps) {
   const summary: MonthlySummary = {
     totalExpenses: expenses.reduce((sum, e) => sum + e.amount, 0),
@@ -69,6 +71,7 @@ export default function DashboardView({
           expenses={expenses}
           onEdit={onEdit}
           onDelete={onDelete}
+          onDuplicate={onDuplicate}
         />
       )}
     </motion.div>

@@ -137,6 +137,28 @@ export default function AppShell() {
     }
   };
 
+  const handleDuplicate = async (expense: IExpense) => {
+    try {
+      const duplicateData = {
+        item: `${expense.item} (copy)`,
+        type: expense.type,
+        mode: expense.mode,
+        amount: expense.amount,
+        date: new Date(expense.date).toISOString().split("T")[0],
+        notes: expense.notes || "",
+      };
+      const result = await createExpense(duplicateData);
+      if (result.success) {
+        toast.success("Expense duplicated!");
+        fetchExpenses();
+      } else {
+        toast.error(result.error || "Failed to duplicate");
+      }
+    } catch {
+      toast.error("Something went wrong");
+    }
+  };
+
   if (status === "loading") {
     return (
       <div className="min-h-screen flex items-center justify-center gradient-mesh text-white">
@@ -178,6 +200,7 @@ export default function AppShell() {
                     setIsSheetOpen(true);
                   }}
                   onDelete={handleDelete}
+                  onDuplicate={handleDuplicate}
                 />
             )}
 

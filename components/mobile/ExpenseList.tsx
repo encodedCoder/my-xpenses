@@ -9,9 +9,10 @@ interface ExpenseListProps {
   expenses: IExpense[];
   onEdit: (expense: IExpense) => void;
   onDelete: (id: string) => void;
+  onDuplicate: (expense: IExpense) => void;
 }
 
-export default function ExpenseList({ expenses, onEdit, onDelete }: ExpenseListProps) {
+export default function ExpenseList({ expenses, onEdit, onDelete, onDuplicate }: ExpenseListProps) {
   if (expenses.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 px-4">
@@ -42,6 +43,7 @@ export default function ExpenseList({ expenses, onEdit, onDelete }: ExpenseListP
               index={index}
               onEdit={onEdit}
               onDelete={onDelete}
+              onDuplicate={onDuplicate}
             />
           ))}
         </AnimatePresence>
