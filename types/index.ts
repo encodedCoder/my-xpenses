@@ -23,6 +23,7 @@ export interface IExpense {
   mode: PaymentMode;
   amount: number;
   date: string;
+  notes?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -33,6 +34,7 @@ export interface ExpenseFormData {
   mode: PaymentMode;
   amount: number;
   date: string;
+  notes?: string;
 }
 
 export interface ExpenseFilters {

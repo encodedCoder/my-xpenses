@@ -54,8 +54,9 @@ export default function AppShell() {
   const fetchExpenses = useCallback(async () => {
     setIsLoading(true);
     try {
-      const startDate = new Date(currentYear, currentMonth - 1, 1).toISOString().split("T")[0];
-      const endDate = new Date(currentYear, currentMonth, 0).toISOString().split("T")[0];
+      const startDate = `${currentYear}-${String(currentMonth).padStart(2, '0')}-01`;
+      const lastDay = new Date(currentYear, currentMonth, 0).getDate();
+      const endDate = `${currentYear}-${String(currentMonth).padStart(2, '0')}-${String(lastDay).padStart(2, '0')}`;
 
       const [monthResult, yearResult] = await Promise.all([
         getExpenses({

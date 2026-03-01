@@ -45,6 +45,7 @@ export default function ExpenseForm({ onSubmit, defaultValues, isLoading }: Expe
       date: defaultValues?.date
         ? new Date(defaultValues.date).toISOString().split("T")[0]
         : new Date().toISOString().split("T")[0],
+      notes: defaultValues?.notes || "",
     },
   });
 
@@ -66,67 +67,65 @@ export default function ExpenseForm({ onSubmit, defaultValues, isLoading }: Expe
         )}
       </div>
 
-      {/* Type */}
-      <div>
-        <label className="block text-sm font-medium text-surface-300 mb-2">
-          Category
-        </label>
-        <div className="relative">
-          <Controller
-            name="type"
-            control={control}
-            render={({ field }) => (
-              <select
-                {...field}
-                className="input-field py-3 text-base appearance-none pr-10 cursor-pointer bg-surface-800"
-              >
-                {EXPENSE_TYPES.map((type) => (
-                  <option key={type} value={type} className="bg-surface-900 border-none outline-none">
-                    {type}
-                  </option>
-                ))}
-              </select>
-            )}
-          />
-          <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-surface-500 pointer-events-none" />
+      {/* Category + Payment Mode row */}
+      <div className="sm:flex sm:gap-4">
+        {/* Type */}
+        <div className="sm:flex-1">
+          <label className="block text-sm font-medium text-surface-300 mb-2">
+            Category
+          </label>
+          <div className="relative">
+            <Controller
+              name="type"
+              control={control}
+              render={({ field }) => (
+                <select
+                  {...field}
+                  className="input-field py-3 text-base appearance-none pr-10 cursor-pointer bg-surface-800"
+                >
+                  {EXPENSE_TYPES.map((type) => (
+                    <option key={type} value={type} className="bg-surface-900 border-none outline-none">
+                      {type}
+                    </option>
+                  ))}
+                </select>
+              )}
+            />
+            <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-surface-500 pointer-events-none" />
+          </div>
+          {errors.type && (
+            <p className="text-red-400 text-xs mt-1.5">{errors.type.message}</p>
+          )}
         </div>
-        {errors.type && (
-          <p className="text-red-400 text-xs mt-1.5">{errors.type.message}</p>
-        )}
-      </div>
 
-      {/* Mode */}
-      <div>
-        <label className="block text-sm font-medium text-surface-300 mb-2">
-          Payment Mode
-        </label>
-        <div className="flex gap-2">
-          <Controller
-            name="mode"
-            control={control}
-            render={({ field }) => (
-              <>
-                {PAYMENT_MODES.map((mode) => (
-                  <button
-                    key={mode}
-                    type="button"
-                    onClick={() => field.onChange(mode)}
-                    className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
-                      field.value === mode
-                        ? "gradient-accent text-white"
-                        : "bg-surface-800 text-surface-300 hover:bg-surface-700"
-                    }`}
-                  >
-                    {mode}
-                  </button>
-                ))}
-              </>
-            )}
-          />
+        {/* Mode */}
+        <div className="mt-5 sm:mt-0 sm:flex-1">
+          <label className="block text-sm font-medium text-surface-300 mb-2">
+            Payment Mode
+          </label>
+          <div className="relative">
+            <Controller
+              name="mode"
+              control={control}
+              render={({ field }) => (
+                <select
+                  {...field}
+                  className="input-field py-3 text-base appearance-none pr-10 cursor-pointer bg-surface-800"
+                >
+                  {PAYMENT_MODES.map((mode) => (
+                    <option key={mode} value={mode} className="bg-surface-900 border-none outline-none">
+                      {mode}
+                    </option>
+                  ))}
+                </select>
+              )}
+            />
+            <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-surface-500 pointer-events-none" />
+          </div>
+          {errors.mode && (
+            <p className="text-red-400 text-xs mt-1.5">{errors.mode.message}</p>
+          )}
         </div>
-        {errors.mode && (
-          <p className="text-red-400 text-xs mt-1.5">{errors.mode.message}</p>
-        )}
       </div>
 
       {/* Amount + Date row on desktop */}
@@ -163,6 +162,22 @@ export default function ExpenseForm({ onSubmit, defaultValues, isLoading }: Expe
             <p className="text-red-400 text-xs mt-1.5">{errors.date.message}</p>
           )}
         </div>
+      </div>
+
+      {/* Notes */}
+      <div>
+        <label className="block text-sm font-medium text-surface-300 mb-2">
+          Notes <span className="text-surface-500 font-normal">(optional)</span>
+        </label>
+        <textarea
+          {...register("notes")}
+          placeholder="Add any additional notes..."
+          rows={1}
+          className="input-field text-base resize-none"
+        />
+        {errors.notes && (
+          <p className="text-red-400 text-xs mt-1.5">{errors.notes.message}</p>
+        )}
       </div>
 
       {/* Submit — always visible with extra spacing */}

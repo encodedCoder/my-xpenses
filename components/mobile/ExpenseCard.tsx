@@ -85,7 +85,8 @@ export default function ExpenseCard({ expense, index, onEdit, onDelete }: Expens
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: isDeleting ? 0 : 1, y: isDeleting ? -20 : 0, scale: isDeleting ? 0.95 : 1 }}
         transition={{ delay: Math.min(index * 0.04, 0.3), duration: 0.3 }}
-        className="glass-card p-4 sm:p-5 relative transition-transform duration-100"
+        className="glass-card p-4 sm:p-5 relative transition-transform duration-100 overflow-visible"
+        style={{ zIndex: showMenu ? 30 : 1 }}
       >
         <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
@@ -130,7 +131,7 @@ export default function ExpenseCard({ expense, index, onEdit, onDelete }: Expens
                     initial={{ opacity: 0, scale: 0.9, y: -10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.9, y: -10 }}
-                    className="absolute right-0 top-10 z-20 w-36 glass-card p-1.5 shadow-elevated border-surface-700/50"
+                    className="absolute right-0 top-10 z-50 w-36 glass-card p-1.5 shadow-elevated border-surface-700/50"
                   >
                     <button
                       onClick={(e) => {

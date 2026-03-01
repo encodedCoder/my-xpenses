@@ -34,6 +34,12 @@ export const expenseSchema = z.object({
     .positive("Amount must be greater than 0")
     .max(10000000, "Amount cannot exceed ₹1,00,00,000"),
   date: z.string().min(1, "Date is required"),
+  notes: z
+    .string()
+    .max(500, "Notes cannot exceed 500 characters")
+    .trim()
+    .optional()
+    .or(z.literal("")),
 });
 
 export type ExpenseSchemaType = z.infer<typeof expenseSchema>;

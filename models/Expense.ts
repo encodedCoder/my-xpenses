@@ -8,6 +8,7 @@ export interface IExpenseDocument extends Document {
   mode: PaymentMode;
   amount: number;
   date: Date;
+  notes?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -50,6 +51,11 @@ const ExpenseSchema = new Schema<IExpenseDocument>(
       type: Date,
       required: [true, "Date is required"],
       index: true,
+    },
+    notes: {
+      type: String,
+      trim: true,
+      maxlength: [500, "Notes cannot exceed 500 characters"],
     },
   },
   {
